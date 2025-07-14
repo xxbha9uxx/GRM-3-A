@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grievance Redressal Portal</title>
-    <!-- Google Identity Services Library -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for a professional look -->
@@ -13,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        <meta name="google-site-verification" content="0KfNqhy6YlXUaHmheYRLAY43JzyjUV_0r5T5nnTzYeI" />
         /* Custom styles for the page */
         body {
             font-family: 'Inter', sans-serif;
@@ -44,9 +41,6 @@
             font-size: 0.875rem;
         }
         /* Adding focus styles for better accessibility */
-        .form-input {
-            transition: all 0.2s ease-in-out;
-        }
         .form-input:focus-within {
              box-shadow: 0 0 0 2px #a78bfa; /* Violet ring on focus */
              border-color: #a78bfa;
@@ -65,27 +59,12 @@
     <div class="container mx-auto p-4 md:p-8 max-w-4xl">
 
         <!-- Header Section -->
-        <header class="text-center mb-6">
+        <header class="text-center mb-10">
             <h1 class="text-3xl md:text-4xl font-bold text-purple-700">Grievance Redressal Portal</h1>
             <p class="text-md text-gray-600 mt-2">Your voice matters. Submit and track your grievances with ease.</p>
         </header>
 
-        <!-- Login/Logout UI -->
-        <div id="auth-section" class="flex justify-center mb-8">
-            <!-- Google Sign-In button will be rendered here -->
-            <div id="google-signin-container"></div>
-            <!-- User profile and Sign Out button -->
-            <div id="user-profile" class="hidden items-center p-2 bg-white rounded-lg shadow-md">
-                <img id="user-pic" class="w-10 h-10 rounded-full mr-3" src="" alt="User profile picture">
-                <div class="text-left">
-                    <p id="user-name" class="font-semibold text-sm text-gray-800"></p>
-                    <p id="user-email" class="text-xs text-gray-600"></p>
-                </div>
-                <button id="signout-btn" class="ml-4 px-3 py-1.5 text-sm font-medium text-purple-700 bg-purple-100 rounded-md hover:bg-purple-200 transition">Sign Out</button>
-            </div>
-        </div>
-
-        <main id="main-content" class="hidden">
+        <main id="main-content">
             <!-- Grievance Submission Form Section -->
             <section id="submission-section" class="bg-white p-6 md:p-8 rounded-xl shadow-2xl mb-12">
                 <h2 class="text-2xl font-bold mb-6 border-b pb-3 flex items-center text-gray-800">
@@ -95,35 +74,43 @@
                 <form id="grievance-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Name -->
-                        <div class="relative">
+                        <div class="relative form-input">
                             <span class="form-input-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg></span>
-                            <input type="text" id="name" name="name" placeholder="Full Name" required class="form-input w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm">
+                            <input type="text" id="name" name="name" placeholder="Full Name" required class="w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm">
                         </div>
-                        <!-- Email (will be pre-filled) -->
-                        <div class="relative">
+                        <!-- Email -->
+                        <div class="relative form-input">
                              <span class="form-input-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg></span>
-                            <input type="email" id="email" name="email" placeholder="Gmail Address" required readonly class="form-input w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed">
+                            <input type="email" id="email" name="email" placeholder="Email Address" required class="w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm">
                         </div>
-                        <!-- Other fields... -->
-                        <div class="relative">
+                        <!-- Mobile Number -->
+                        <div class="relative form-input">
                              <span class="form-input-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg></span>
-                            <input type="tel" id="mobile" name="mobile" placeholder="10-digit Mobile Number" required pattern="\d{10}" title="Please enter a 10-digit mobile number" class="form-input w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm">
+                            <input type="tel" id="mobile" name="mobile" placeholder="10-digit Mobile Number" required pattern="\d{10}" title="Please enter a 10-digit mobile number" class="w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm">
                         </div>
-                        <div class="relative">
+                        <!-- College Roll Number -->
+                        <div class="relative form-input">
                             <span class="form-input-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM4 8h5v2H4V8z" clip-rule="evenodd" /></svg></span>
-                            <input type="text" id="roll-number" name="roll-number" placeholder="7-digit Roll Number" required pattern="\d{7}" title="Please enter a 7-digit roll number" class="form-input w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm">
+                            <input type="text" id="roll-number" name="roll-number" placeholder="7-digit Roll Number" required pattern="\d{7}" title="Please enter a 7-digit roll number" class="w-full pl-10 p-2 border border-gray-300 rounded-md shadow-sm">
                         </div>
+                        <!-- Course -->
                         <select id="course" name="course" required class="form-input w-full p-2 border border-gray-300 rounded-md shadow-sm">
                             <option value="" disabled selected>Select your course</option>
                             <option>B.A. (Hons.) Economics</option><option>B.A. (Hons.) English</option><option>B.A. (Hons.) History</option><option>B.A. (Hons.) Political Science</option><option>B.A. Programme</option><option>B.Com (Hons.)</option><option>B.Com Programme</option><option>B.Sc. (Hons.) Botany</option><option>B.Sc. (Hons.) Chemistry</option><option>B.Sc. (Hons.) Computer Science</option><option>B.Sc. (Hons.) Mathematics</option><option>B.Sc. (Hons.) Physics</option><option>B.Sc. (Hons.) Zoology</option><option>B.Sc. Life Sciences</option><option>B.Sc. Physical Science with Chemistry</option><option>B.Sc. Physical Science with Computer Science</option><option>Other</option>
                         </select>
+                        <!-- Year -->
                         <select id="year" name="year" required class="form-input w-full p-2 border border-gray-300 rounded-md shadow-sm">
                             <option value="" disabled selected>Select Year</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option>
                         </select>
+                        <!-- First Grievance? -->
                         <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700 mb-2">Is this your first grievance?</label><div class="flex items-center space-x-4"><label class="flex items-center"><input type="radio" name="first-grievance" value="Yes" required class="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300"> <span class="ml-2">Yes</span></label><label class="flex items-center"><input type="radio" name="first-grievance" value="No" class="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300"> <span class="ml-2">No</span></label></div></div>
+                        <!-- Type of Grievance -->
                         <div class="md:col-span-2"><label for="grievance-type" class="block text-sm font-medium text-gray-700 mb-1">Type of Grievance</label><select id="grievance-type" name="grievance-type" required class="form-input w-full p-2 border border-gray-300 rounded-md shadow-sm"><option value="" disabled selected>Select Type</option><option value="Admin">Admin</option><option value="Canteen">Canteen</option><option value="Infrastructure">Infrastructure</option><option value="Academics">Academics</option><option value="Personal">Personal</option><option value="Hostel">Hostel</option><option value="Others">Others</option></select></div>
+                        <!-- Grievance Description -->
                         <div class="md:col-span-2"><label for="description" class="block text-sm font-medium text-gray-700 mb-1">Grievance Description</label><textarea id="description" name="description" rows="4" required placeholder="Please describe your grievance in detail..." class="form-input w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea></div>
+                        <!-- File Upload -->
                         <div class="md:col-span-2"><label for="file-upload" class="block text-sm font-medium text-gray-700">Upload Scanned Application Of the Grievance/Issue with your signature and date on it</label><p class="text-xs text-gray-500 mt-1 mb-2">PDF only, max 1MB.</p><input type="file" id="file-upload" name="file-upload" accept=".pdf" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"/><div id="file-upload-error" class="text-red-600 text-sm mt-1"></div></div>
+                        <!-- Confirmation Checkbox -->
                         <div class="md:col-span-2 flex items-start"><div class="flex items-center h-5"><input id="confirmation" name="confirmation" type="checkbox" required class="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300 rounded"></div><div class="ml-3 text-sm"><label for="confirmation" class="font-medium text-gray-700">I confirm all the information given by me is correct.</label></div></div>
                     </div>
                     <div class="mt-8 text-right"><button type="submit" id="submit-btn" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all transform hover:scale-105">Submit Grievance<span id="submit-loader" class="hidden loader"></span></button></div>
@@ -131,23 +118,18 @@
                 <div id="submission-result" class="hidden mt-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-800 rounded-md"><p id="result-message"></p><div class="mt-2 flex items-center"><span id="grievance-id-display" class="font-mono text-lg font-bold mr-4"></span><button id="copy-id-btn" class="px-3 py-1 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 focus:outline-none">Copy ID</button></div></div>
                 <div id="submission-error" class="hidden mt-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-md"></div>
             </section>
+            
+            <!-- Grievance Status Tracker -->
             <section id="tracker-section" class="bg-white p-6 md:p-8 rounded-xl shadow-2xl"><h2 class="text-2xl font-bold mb-6 border-b pb-3 flex items-center text-gray-800"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>Track Your Grievance</h2><form id="tracker-form" class="flex flex-col sm:flex-row items-center gap-4"><label for="track-id" class="sr-only">Grievance ID</label><input type="text" id="track-id" name="track-id" placeholder="Enter your Grievance ID (e.g., GRV-XXXXX)" required class="form-input w-full flex-grow p-3 border border-gray-300 rounded-md shadow-sm"><button type="submit" id="track-btn" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 transition-all transform hover:scale-105">Track Status<span id="track-loader" class="hidden loader"></span></button></form><div id="tracker-result" class="hidden mt-8 border-t pt-6 space-y-4"><div><h4 class="text-sm font-medium text-gray-500">Status</h4><p id="status-display" class="status-badge mt-1"></p></div><div><h4 class="text-sm font-medium text-gray-500">Grievance Description</h4><p id="description-display" class="mt-1 p-3 bg-gray-50 rounded-md border"></p></div><div><h4 class="text-sm font-medium text-gray-500">Submission Date & Time</h4><p id="timestamp-display" class="mt-1 text-gray-800"></p></div><div><h4 class="text-sm font-medium text-gray-500">Response from Admin</h4><p id="response-display" class="mt-1 p-3 bg-purple-50 rounded-md border border-purple-200"></p></div></div><div id="tracker-error" class="hidden mt-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-md"></div></section>
         </main>
     </div>
 
     <script>
         // --- CONFIGURATION ---
-        const GOOGLE_CLIENT_ID = '908972289443-57eee2i5q8p4bjeoh548j19ftok8l4kn.apps.googleusercontent.com';
-        const googleAppScriptUrl = 'https://script.google.com/macros/s/AKfycbxKbNNOaXPBkqhNILlYAtuoyB0gpD1FnAm6ajrsSj6kZGxFLNEcdnnpFGmRycFIJwzyug/exec';
+        const googleAppScriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
         // --- DOM Element References ---
-        const mainContent = document.getElementById('main-content');
-        const googleSigninContainer = document.getElementById('google-signin-container');
-        const userProfile = document.getElementById('user-profile');
-        const signoutBtn = document.getElementById('signout-btn');
-        const emailInput = document.getElementById('email');
         const grievanceForm = document.getElementById('grievance-form');
-        // ... (other references from previous version)
         const fileUpload = document.getElementById('file-upload');
         const fileUploadError = document.getElementById('file-upload-error');
         const submitBtn = document.getElementById('submit-btn');
@@ -158,83 +140,7 @@
         const grievanceIdDisplay = document.getElementById('grievance-id-display');
         const copyIdBtn = document.getElementById('copy-id-btn');
 
-
-        /**
-         * Function to decode JWT token.
-         * Note: This is a simple decoding for payload extraction, not for signature verification.
-         */
-        function decodeJwtResponse(token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
-        }
-
-        /**
-         * Handles the response from Google Sign-In.
-         */
-        function handleCredentialResponse(response) {
-            const responsePayload = decodeJwtResponse(response.credential);
-
-            // Show main content and user profile
-            mainContent.classList.remove('hidden');
-            userProfile.classList.remove('hidden');
-            userProfile.classList.add('flex');
-            googleSigninContainer.classList.add('hidden');
-
-            // Populate user info
-            document.getElementById('user-name').innerText = responsePayload.name;
-            document.getElementById('user-email').innerText = responsePayload.email;
-            document.getElementById('user-pic').src = responsePayload.picture;
-            
-            // Pre-fill and disable the email field in the form
-            emailInput.value = responsePayload.email;
-        }
-        
-        /**
-         * Handles user sign-out.
-         */
-        function handleSignOut() {
-            google.accounts.id.disableAutoSelect();
-            
-            // Hide main content and user profile
-            mainContent.classList.add('hidden');
-            userProfile.classList.add('hidden');
-            userProfile.classList.remove('flex');
-            googleSigninContainer.classList.remove('hidden');
-
-            // Reset the form
-            grievanceForm.reset();
-            emailInput.value = ''; // Clear the pre-filled email
-        }
-
-        /**
-         * Initializes Google Sign-In when the window loads.
-         */
-        window.onload = function () {
-            if (GOOGLE_CLIENT_ID.includes('YOUR_GOOGLE_CLIENT_ID_HERE')) {
-                googleSigninContainer.innerHTML = '<p class="text-red-600 font-semibold">Google Client ID is not configured. Please set it up and paste it into the HTML file.</p>';
-                return;
-            }
-
-            google.accounts.id.initialize({
-                client_id: GOOGLE_CLIENT_ID,
-                callback: handleCredentialResponse
-            });
-
-            google.accounts.id.renderButton(
-                googleSigninContainer,
-                { theme: "outline", size: "large" }  // Customize the button
-            );
-            
-            google.accounts.id.prompt(); // Display the One Tap prompt
-        };
-
-        signoutBtn.addEventListener('click', handleSignOut);
-
-        // --- The rest of your form submission and tracking logic remains here ---
+        // --- Form Submission Logic ---
         grievanceForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             submissionError.classList.add('hidden');
@@ -243,13 +149,20 @@
             const file = fileUpload.files[0];
             fileUploadError.textContent = '';
             if (file) {
-                if (file.type !== 'application/pdf') { fileUploadError.textContent = 'Invalid file type. Please upload a PDF.'; return; }
-                if (file.size > 1 * 1024 * 1024) { fileUploadError.textContent = 'File is too large. Maximum size is 1MB.'; return; }
+                if (file.type !== 'application/pdf') { 
+                    fileUploadError.textContent = 'Invalid file type. Please upload a PDF.'; 
+                    return; 
+                }
+                if (file.size > 1 * 1024 * 1024) { // 1MB
+                    fileUploadError.textContent = 'File is too large. Maximum size is 1MB.'; 
+                    return; 
+                }
             }
 
-            if (googleAppScriptUrl.includes('YOUR_NEW_WEB_APP_URL_HERE')) {
+            if (googleAppScriptUrl.includes('https://script.google.com/macros/s/AKfycbxKbNNOaXPBkqhNILlYAtuoyB0gpD1FnAm6ajrsSj6kZGxFLNEcdnnpFGmRycFIJwzyug/exec')) {
                 submissionError.textContent = 'Configuration error: The Google Apps Script URL is not set.';
-                submissionError.classList.remove('hidden'); return;
+                submissionError.classList.remove('hidden'); 
+                return;
             }
 
             submitLoader.classList.remove('hidden');
@@ -260,7 +173,7 @@
             const grievanceData = {
                 grievanceId: generateGrievanceId(),
                 name: formData.get('name'),
-                email: formData.get('email'), // This will be the authenticated email
+                email: formData.get('email'),
                 mobile: formData.get('mobile'),
                 rollNumber: formData.get('roll-number'),
                 course: formData.get('course'),
@@ -287,16 +200,28 @@
 
         async function sendData(data) {
              try {
-                const response = await fetch(googleAppScriptUrl, { method: 'POST', mode: 'cors', cache: 'no-cache', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) });
+                const response = await fetch(googleAppScriptUrl, { 
+                    method: 'POST', 
+                    mode: 'cors', 
+                    cache: 'no-cache', 
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+                    body: JSON.stringify(data) 
+                });
                 const result = await response.json();
                 if (result.status === 'success') {
                     resultMessage.textContent = 'Your grievance has been submitted successfully! Your Grievance ID is:';
                     grievanceIdDisplay.textContent = result.grievanceId;
                     submissionResult.classList.remove('hidden');
                     grievanceForm.reset();
-                    emailInput.value = data.email; // Re-populate the email field after reset
-                } else { throw new Error(result.message || 'An unknown error occurred.'); }
-            } catch (error) { handleSubmissionError(error.message); } finally { submitLoader.classList.add('hidden'); submitBtn.disabled = false; }
+                } else { 
+                    throw new Error(result.message || 'An unknown error occurred.'); 
+                }
+            } catch (error) { 
+                handleSubmissionError(error.message); 
+            } finally { 
+                submitLoader.classList.add('hidden'); 
+                submitBtn.disabled = false; 
+            }
         }
         
         function handleSubmissionError(message) {
@@ -305,16 +230,6 @@
              submitLoader.classList.add('hidden');
              submitBtn.disabled = false;
         }
-
-        const trackerForm = document.getElementById('tracker-form');
-        const trackBtn = document.getElementById('track-btn');
-        const trackLoader = document.getElementById('track-loader');
-        const trackerResult = document.getElementById('tracker-result');
-        const trackerError = document.getElementById('tracker-error');
-        const statusDisplay = document.getElementById('status-display');
-        const descriptionDisplay = document.getElementById('description-display');
-        const timestampDisplay = document.getElementById('timestamp-display');
-        const responseDisplay = document.getElementById('response-display');
 
         function generateGrievanceId() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -325,23 +240,34 @@
 
         copyIdBtn.addEventListener('click', () => {
             const idToCopy = grievanceIdDisplay.textContent;
-            const textArea = document.createElement('textarea');
-            textArea.value = idToCopy;
-            textArea.setAttribute('readonly', '');
-            textArea.style.position = 'absolute';
-            textArea.style.left = '-9999px';
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
+            navigator.clipboard.writeText(idToCopy).then(() => {
                 copyIdBtn.textContent = 'Copied!';
                 setTimeout(() => { copyIdBtn.textContent = 'Copy ID'; }, 2000);
-            } catch (err) { console.error('Failed to copy ID: ', err); copyIdBtn.textContent = 'Error'; setTimeout(() => { copyIdBtn.textContent = 'Copy ID'; }, 2000); } finally { document.body.removeChild(textArea); }
+            }).catch(err => {
+                console.error('Failed to copy ID: ', err);
+                copyIdBtn.textContent = 'Error';
+                setTimeout(() => { copyIdBtn.textContent = 'Copy ID'; }, 2000);
+            });
         });
+
+        // --- Tracker Logic ---
+        const trackerForm = document.getElementById('tracker-form');
+        const trackBtn = document.getElementById('track-btn');
+        const trackLoader = document.getElementById('track-loader');
+        const trackerResult = document.getElementById('tracker-result');
+        const trackerError = document.getElementById('tracker-error');
+        const statusDisplay = document.getElementById('status-display');
+        const descriptionDisplay = document.getElementById('description-display');
+        const timestampDisplay = document.getElementById('timestamp-display');
+        const responseDisplay = document.getElementById('response-display');
 
         trackerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (googleAppScriptUrl.includes('YOUR_NEW_WEB_APP_URL_HERE')) { trackerError.textContent = 'Configuration error: The Google Apps Script URL is not set.'; trackerError.classList.remove('hidden'); return; }
+            if (googleAppScriptUrl.includes('YOUR_GOOGLE_APPS_SCRIPT_URL_HERE')) { 
+                trackerError.textContent = 'Configuration error: The Google Apps Script URL is not set.'; 
+                trackerError.classList.remove('hidden'); 
+                return; 
+            }
             trackLoader.classList.remove('hidden');
             trackBtn.disabled = true;
             trackerResult.classList.add('hidden');
@@ -351,14 +277,24 @@
             try {
                 const response = await fetch(trackingUrl);
                 const result = await response.json();
-                if (result.status === 'success' && result.data) { displayTrackingResults(result.data); } else { throw new Error(result.message || 'Grievance ID not found.'); }
-            } catch (error) { trackerError.textContent = `Error: ${error.message}`; trackerError.classList.remove('hidden'); } finally { trackLoader.classList.add('hidden'); trackBtn.disabled = false; }
+                if (result.status === 'success' && result.data) { 
+                    displayTrackingResults(result.data); 
+                } else { 
+                    throw new Error(result.message || 'Grievance ID not found.'); 
+                }
+            } catch (error) { 
+                trackerError.textContent = `Error: ${error.message}`; 
+                trackerError.classList.remove('hidden'); 
+            } finally { 
+                trackLoader.classList.add('hidden'); 
+                trackBtn.disabled = false; 
+            }
         });
 
         function displayTrackingResults(data) {
             const status = data.Status || 'Pending';
             statusDisplay.textContent = status;
-            statusDisplay.className = 'status-badge';
+            statusDisplay.className = 'status-badge mt-1'; // Reset classes
             switch (status.toLowerCase()) {
                 case 'in review': statusDisplay.classList.add('bg-blue-200', 'text-blue-800'); break;
                 case 'on hold': statusDisplay.classList.add('bg-yellow-200', 'text-yellow-800'); break;
